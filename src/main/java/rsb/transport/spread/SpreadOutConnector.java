@@ -331,7 +331,7 @@ public class SpreadOutConnector implements OutConnector {
             // optimistic guess
             fragmentBuilder.setNumDataParts(1);
 
-            fragments.add(new Fragment(fragmentBuilder, notificationBuilder)); // NOPMD
+            fragments.add(new Fragment(fragmentBuilder, notificationBuilder));
 
             cursor += fragmentDataSize;
             currentFragment++;

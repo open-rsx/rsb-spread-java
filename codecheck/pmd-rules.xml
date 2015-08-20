@@ -6,9 +6,7 @@
     <description>rsb-java rules</description>
 
     <!-- Files we want to scan -->
-    <exclude-pattern>.*/generated-protocol/.*</exclude-pattern>
-    <exclude-pattern>.*/spread-4.0.0/.*</exclude-pattern>
-    <exclude-pattern>.*\.txt</exclude-pattern>
+    <exclude-pattern>.*/java/spread/.*</exclude-pattern>
 
     <rule ref="rulesets/java/basic.xml" />
     <rule ref="rulesets/java/braces.xml" />
@@ -23,7 +21,9 @@
         <exclude name="LoosePackageCoupling" />
         <exclude name="LawOfDemeter" />
     </rule>
-    <rule ref="rulesets/java/design.xml" />
+    <rule ref="rulesets/java/design.xml">
+        <exclude name="SimplifyBooleanReturns" />
+    </rule>
     <rule ref="rulesets/java/finalizers.xml" />
     <rule ref="rulesets/java/imports.xml" />
     <rule ref="rulesets/java/junit.xml">
