@@ -44,9 +44,9 @@ public class SpreadWrapperTest extends LoggingEnabled {
     public void spreadWrapper() throws Throwable {
         final SpreadWrapper spread = Utilities.createSpreadWrapper();
         assertNotNull(spread);
-        assertEquals(SpreadWrapper.State.DEACTIVATED, spread.getStatus());
+        assertEquals(SpreadWrapper.ConnectionState.DEACTIVATED, spread.getStatus());
         spread.activate();
-        assertEquals(SpreadWrapper.State.ACTIVATED, spread.getStatus());
+        assertEquals(SpreadWrapper.ConnectionState.ACTIVATED, spread.getStatus());
     }
 
 }
