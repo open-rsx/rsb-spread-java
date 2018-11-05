@@ -1,10 +1,12 @@
-[![Build Status](https://travis-ci.org/open-rsx/rsb-java?branch=master)](https://travis-ci.org/open-rsx/rsb-java) [![Coverage Report](https://codecov.io/gh/open-rsx/rsb-java/branch/master/graph/badge.svg)](https://codecov.io/gh/open-rsx/rsb-java)
+[![Build Status](https://travis-ci.org/open-rsx/rsb-spread-java?branch=master)](https://travis-ci.org/open-rsx/rsb-spread-java) [![Coverage Report](https://codecov.io/gh/open-rsx/rsb-spread-java/branch/master/graph/badge.svg)](https://codecov.io/gh/open-rsx/rsb-spread-java)
 
 # Introduction
 
-This repository contains the Java implementation of the [Robotics Service Bus](https://github.com/open-rsx) middleware.
+This repository contains the Java implementation of the [Spread][spread]-based transport for the [Robotics Service Bus](https://github.com/open-rsx) middleware.
 
 **The full documentation for RSB can be found at <https://docs.cor-lab.de/manual/rsb-trunk/index.html>.**
+
+**This product uses software developed by Spread Concepts LLC for use in the Spread toolkit. For more information about Spread see <http://www.spread.org>.**
 
 # Dependencies
 
@@ -44,3 +46,4 @@ The development of this software has been supported as follows:
 * This work was supported by the Cluster of Excellence Cognitive Interaction Technology ‘CITEC’ (EXC 277) at Bielefeld University, which is funded by the German Research Foundation (DFG).
 
 [maven]: https://maven.apache.org/
+[spread]: https://www.spread.org
