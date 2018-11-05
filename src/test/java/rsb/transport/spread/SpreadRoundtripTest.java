@@ -38,12 +38,11 @@ import org.junit.runners.Parameterized.Parameters;
 import rsb.QualityOfServiceSpec;
 import rsb.QualityOfServiceSpec.Ordering;
 import rsb.QualityOfServiceSpec.Reliability;
-import rsb.Utilities;
 import rsb.converter.StringConverter;
 import rsb.converter.UnambiguousConverterMap;
-import rsb.transport.ConnectorRoundtripCheck;
 import rsb.transport.InPushConnector;
 import rsb.transport.OutConnector;
+import rsb.testutils.ConnectorRoundtripCheck;
 
 /**
  * Test for {@link SpreadOutConnector}.

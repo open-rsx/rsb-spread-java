@@ -3,7 +3,7 @@
  *
  * This file is part of the rsb-java project
  *
- * Copyright (C) 2010 CoR-Lab, Bielefeld University
+ * Copyright (C) 2018 CoR-Lab, Bielefeld University
  *
  * This file may be licensed under the terms of the
  * GNU Lesser General Public License Version 3 (the ``LGPL''),
@@ -27,23 +27,25 @@
  */
 package rsb.transport.spread;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.Rule;
 
-import org.junit.Test;
+import rsb.testutils.LoggingTestCase;
+import rsb.testutils.ParticipantConfigSetter;
 
 /**
- * @author swrede
+ * Derive all test cases from this class to improve the logging output by
+ * including the currently running test name.
+ *
+ * @author jwienke
  */
-public class SpreadWrapperTest extends SpreadTestCase {
+public abstract class SpreadTestCase extends LoggingTestCase {
 
-    @Test
-    public void spreadWrapper() throws Throwable {
-        final SpreadWrapper spread = Utilities.createSpreadWrapper();
-        assertNotNull(spread);
-        assertEquals(SpreadWrapper.ConnectionState.DEACTIVATED, spread.getStatus());
-        spread.activate();
-        assertEquals(SpreadWrapper.ConnectionState.ACTIVATED, spread.getStatus());
-    }
+    /**
+     * Rule to start test start and end logging.
+     */
+    // CHECKSTYLE.OFF: VisibilityModifier - required by junit
+    @Rule
+    public final ParticipantConfigSetter setter = new ParticipantConfigSetter(
+            Utilities.createParticipantConfig());
 
 }

@@ -33,7 +33,6 @@ import rsb.Factory;
 import rsb.Informer;
 import rsb.InitializeException;
 import rsb.Listener;
-import rsb.RsbTestCase;
 import rsb.RSBException;
 import rsb.Scope;
 import rsb.config.ParticipantConfig;
@@ -46,12 +45,10 @@ import rsb.util.Properties;
 /**
  * Test for situations where no connection to a Spread daemon is available.
  *
- * Pre-Condition: Spread is not running
- *
  * @author swrede
  * @author jwienke
  */
-public class SpreadNotRunningTest extends RsbTestCase {
+public class SpreadNotRunningTest extends SpreadTestCase {
 
     private static final Scope SCOPE = new Scope("/test/");
 

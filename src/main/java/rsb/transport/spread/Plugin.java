@@ -3,7 +3,7 @@
  *
  * This file is part of the rsb-java project
  *
- * Copyright (C) 2010 CoR-Lab, Bielefeld University
+ * Copyright (C) 2018 CoR-Lab, Bielefeld University
  *
  * This file may be licensed under the terms of the
  * GNU Lesser General Public License Version 3 (the ``LGPL''),
@@ -25,25 +25,28 @@
  *
  * ============================================================
  */
+
 package rsb.transport.spread;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
+import rsb.plugin.LoadingException;
+import rsb.transport.TransportRegistry;
 
 /**
- * @author swrede
+ * Plugin implementation for the spread transport.
+ *
+ * @author jwienke
  */
-public class SpreadWrapperTest extends SpreadTestCase {
+public class Plugin implements rsb.plugin.Plugin {
 
-    @Test
-    public void spreadWrapper() throws Throwable {
-        final SpreadWrapper spread = Utilities.createSpreadWrapper();
-        assertNotNull(spread);
-        assertEquals(SpreadWrapper.ConnectionState.DEACTIVATED, spread.getStatus());
-        spread.activate();
-        assertEquals(SpreadWrapper.ConnectionState.ACTIVATED, spread.getStatus());
+    @Override
+    public void initialize() throws LoadingException {
+        try {
+            TransportRegistry.getDefaultInstance().registerTransport("spread",
+                    new SpreadFactory());
+        } catch (final IllegalArgumentException e) {
+            throw new LoadingException(e);
+        }
     }
 
 }
+

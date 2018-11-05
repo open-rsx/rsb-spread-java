@@ -388,8 +388,8 @@ public class SpreadReceiver extends AbstractActivatable {
      * Join a spread group.
      *
      * @param groupName
-     *            name of the spread group, not <code>null</code>, must be <=
-     *            {@link SpreadUtilities#MAX_GROUP_NAME_LENGTH}
+     *            name of the spread group, not <code>null</code>, must be less
+     *            than or equal to {@link SpreadUtilities#MAX_GROUP_NAME_LENGTH}
      * @throws RSBException
      *             unable to join the group
      * @throws InterruptedException

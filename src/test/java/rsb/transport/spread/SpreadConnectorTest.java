@@ -32,11 +32,10 @@ import java.nio.ByteBuffer;
 import rsb.QualityOfServiceSpec;
 import rsb.QualityOfServiceSpec.Ordering;
 import rsb.QualityOfServiceSpec.Reliability;
-import rsb.Utilities;
 import rsb.converter.UnambiguousConverterMap;
-import rsb.transport.ConnectorCheck;
 import rsb.transport.InPushConnector;
 import rsb.transport.OutConnector;
+import rsb.testutils.ConnectorCheck;
 
 /**
  * Test for spread connectors.

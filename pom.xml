@@ -2,25 +2,82 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- General project settings. -->
-    <parent>
-        <groupId>rsb</groupId>
-        <artifactId>rsb-java</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>rsb</artifactId>
+    <groupId>rsb</groupId>
+    <artifactId>rsb-spread-java</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>rsb-java</name>
+    <name>rsb-spread-java</name>
+    <url>https://github.com/open-rsx/rsb-spread-java</url>
+
+    <description>
+        Spread transport for the RSB middleware
+    </description>
+
+    <organization>
+        <name>CoR-Lab</name>
+        <url>http://www.cor-lab.org/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 3</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <developerConnection>scm:git:git@github.com:open-rsx/rsb-spread-java.git</developerConnection>
+        <url>https://github.com/open-rsx/rsb-spread-java.git</url>
+    </scm>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <test.configs>${project.basedir}/target/generated-test-config</test.configs>
-        <!-- If set to true, test execution pauses shortly between each test to mitigate https://issues.apache.org/jira/browse/SUREFIRE&#45;1587 -->
-        <test.sleep>false</test.sleep>
+        <spread.daemon>/usr/sbin/spread</spread.daemon>
+        <spread.port>4910</spread.port>
+        <target.java.version>1.7</target.java.version>
+        <plugin.checkstyle.version>2.15</plugin.checkstyle.version>
+        <plugin.pmd.version>3.6</plugin.pmd.version>
+        <plugin.javadoc.version>3.0.1</plugin.javadoc.version>
+        <plugin.jacoco.version>0.8.2</plugin.jacoco.version>
+        <failOnStyleError>true</failOnStyleError>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>rsb</groupId>
+            <artifactId>rsb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>rsb</groupId>
+            <artifactId>rsb-java-test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
+
+            <!-- Compiler settings -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${target.java.version}</source>
+                    <target>${target.java.version}</target>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
 
             <!-- Check the availability of different external dependencies. -->
             <plugin>
@@ -65,48 +122,12 @@ Spread daemon not found at '${spread.daemon}'. Please set spread.daemon.
                             <name>java.util.logging.config.file</name>
                             <value>${test.configs}/logging.properties</value>
                         </property>
-                        <property>
-                            <name>rsb.test.sleep</name>
-                            <value>${test.sleep}</value>
-                        </property>
                     </systemProperties>
                     <environmentVariables>
+                        <!-- This implicitly tests that the plugin can correctly be loaded -->
+                        <RSB_PLUGIN_JAVA_LOAD>rsb.transport.spread</RSB_PLUGIN_JAVA_LOAD>
                         <RSB_TRANSPORT_SPREAD_PORT>${spread.port}</RSB_TRANSPORT_SPREAD_PORT>
-                        <RSB_TRANSPORT_SOCKET_PORT>${socket.port}</RSB_TRANSPORT_SOCKET_PORT>
                     </environmentVariables>
-                </configuration>
-            </plugin>
-
-            <!-- generate the protocol files -->
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Settings for the generated JAR. -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <!-- exclude examples from the jar file -->
-                    <excludes>
-                        <include>*.class</include>
-                    </excludes>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Last-Commit>${git.commit}</Last-Commit>
-                        </manifestEntries>
-                    </archive>
                 </configuration>
             </plugin>
 
@@ -323,77 +344,7 @@ Spread daemon not found at '${spread.daemon}'. Please set spread.daemon.
             </plugin>
 
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            org.apache.maven.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            maven-antrun-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.3,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>run</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.jacoco</groupId>
-                                        <artifactId>
-                                            jacoco-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [0.6.3.201306030806,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>prepare-agent</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            org.codehaus.gmaven
-                                        </groupId>
-                                        <artifactId>
-                                            gmaven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.4,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>execute</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+
     </build>
 
     <reporting>
