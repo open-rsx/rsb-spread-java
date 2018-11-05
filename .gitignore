@@ -1,7 +1,2 @@
-/build*
-/dist
 /target/
-*/target/
-*/gitversion
-*/gitbranch
-pom.xml.versionsBackup
+/tags
