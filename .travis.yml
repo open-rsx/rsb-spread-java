@@ -6,16 +6,25 @@ before_install:
   - wget -q http://packages.cor-lab.de/keys/cor-lab.asc -O- | sudo apt-key add -
   - sudo apt-get update -q
   - sudo apt-get install spread
+  - mkdir upstream
+  - cd upstream
+  - wget "https://dl.bintray.com/open-rsx/travis-artifacts/rsb-java-master.tar.gz"
+  - "tar -xzf rsb-java-*.tar.gz"
+  - cd ..
 jdk:
   - openjdk8
   - openjdk10
   - openjdk11
+install:
+  - mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.1:get -DremoteRepositories=file://$(pwd)/upstream/rsb-java -Dartifact=rsb:rsb:1.0-SNAPSHOT
+  - mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.1:get -DremoteRepositories=file://$(pwd)/upstream/rsb-java -Dartifact=rsb:rsb-java-test:1.0-SNAPSHOT
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   mvn test -B -DtrimStackTrace=false -Dtest.sleep=true
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 after_failure:
-  - cat rsb-java/target/tests-*.log
+  - cat target/tests-*.log
 cache:
   directories:
     - $HOME/.m2
@@ -28,19 +37,19 @@ jobs:
       after_success:
       script:
         - mkdir -p deploy
-        - "mvn -B -DskipTests=true -DaltDeploymentRepository=snapshot-repo::default::file:deploy/rsb-java deploy"
+        - "mvn -B -DskipTests=true -DaltDeploymentRepository=snapshot-repo::default::file:deploy/rsb-spread-java deploy"
         - cd deploy
-        - tar -czf "../rsb-java-${TRAVIS_BRANCH}.tar.gz" rsb-java
+        - tar -czf "../rsb-spread-java-${TRAVIS_BRANCH}.tar.gz" rsb-spread-java
         - cd ..
         - |
           cat << EOF > bintray.json
           {
             "package": {
-              "name": "rsb-java",
+              "name": "rsb-spread-java",
               "repo": "travis-artifacts",
               "subject": "open-rsx",
               "desc": "Travis artifact for branch ${TRAVIS_BRANCH}",
-              "vcs_url": "https://github.com/open-rsx/rsb-java.git",
+              "vcs_url": "https://github.com/open-rsx/rsb-spread-java.git",
               "licenses": ["LGPL-3.0"]
             },
 
@@ -51,7 +60,7 @@ jobs:
 
             "files": [
               {
-                "includePattern": "\\./(rsb-java-.*\\\\.tar\\\\.gz)",
+                "includePattern": "\\./(rsb-spread-java-.*\\\\.tar\\\\.gz)",
                 "uploadPattern": "\$1",
                 "matrixParams": {
                   "override": 1
@@ -69,5 +78,5 @@ jobs:
         key: '${BINTRAY_KEY}'
         skip_cleanup: true
         on:
-          repo: open-rsx/rsb-java
+          repo: open-rsx/rsb-spread-java
           all_branches: true
