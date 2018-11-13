@@ -33,7 +33,7 @@ import rsb.QualityOfServiceSpec;
 import rsb.QualityOfServiceSpec.Ordering;
 import rsb.QualityOfServiceSpec.Reliability;
 import rsb.converter.UnambiguousConverterMap;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 import rsb.transport.OutConnector;
 import rsb.testutils.ConnectorCheck;
 
@@ -46,12 +46,12 @@ import rsb.testutils.ConnectorCheck;
 public class SpreadConnectorTest extends ConnectorCheck {
 
     @Override
-    protected InPushConnector createInConnector(
+    protected InConnector createInConnector(
             final UnambiguousConverterMap<ByteBuffer> converters)
             throws Throwable {
         final SpreadWrapper inWrapper = Utilities.createSpreadWrapper();
-        final SpreadInPushConnector inPort =
-                new SpreadInPushConnector(inWrapper, converters);
+        final SpreadInConnector inPort =
+                new SpreadInConnector(inWrapper, converters);
         return inPort;
     }
 

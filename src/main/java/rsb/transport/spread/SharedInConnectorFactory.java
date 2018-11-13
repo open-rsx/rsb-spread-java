@@ -34,7 +34,7 @@ import java.util.Map;
 
 import rsb.InitializeException;
 import rsb.converter.ConverterSelectionStrategy;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 import rsb.util.Properties;
 
 /**
@@ -44,14 +44,14 @@ import rsb.util.Properties;
  *
  * @author jwienke
  */
-public class SharedInPushConnectorFactory implements InPushConnectorFactory {
+public class SharedInConnectorFactory implements InConnectorFactory {
 
     private final Map<ListeningOptions, SpreadMultiReceiver> spreadReceiversByOptions =
             new HashMap<ListeningOptions, SpreadMultiReceiver>();
 
     /**
      * Options specifying all static properties of a
-     * {@link SpreadInPushConnector} instance.
+     * {@link SpreadInConnector} instance.
      *
      * @author jwienke
      */
@@ -133,7 +133,7 @@ public class SharedInPushConnectorFactory implements InPushConnectorFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public InPushConnector create(final Properties properties,
+    public InConnector create(final Properties properties,
             final ConverterSelectionStrategy<?> converters)
             throws InitializeException {
         final SpreadOptions spreadOptions =
@@ -155,7 +155,7 @@ public class SharedInPushConnectorFactory implements InPushConnectorFactory {
                                                 (ConverterSelectionStrategy<ByteBuffer>) converters)));
                 // CHECKSTYLE.ON: LineLength
             }
-            return new MultiSpreadInPushConnector(
+            return new MultiSpreadInConnector(
                     this.spreadReceiversByOptions.get(options));
         }
     }

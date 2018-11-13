@@ -29,19 +29,19 @@ package rsb.transport.spread;
 
 import rsb.InitializeException;
 import rsb.converter.ConverterSelectionStrategy;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 import rsb.util.Properties;
 
 /**
- * Interface for strategies used to create {@link SpreadInPushConnector}
+ * Interface for strategies used to create {@link SpreadInConnector}
  * instances depending on the client's needs.
  *
  * @author jwienke
  */
-public interface InPushConnectorFactory {
+public interface InConnectorFactory {
 
     /**
-     * Creates a new instance of a {@link SpreadInPushConnector} based on the
+     * Creates a new instance of a {@link SpreadInConnector} based on the
      * provided options.
      *
      * @param properties
@@ -53,7 +53,7 @@ public interface InPushConnectorFactory {
      * @throws InitializeException
      *             unable to initialize a connector for the provided options
      */
-    InPushConnector create(final Properties properties,
+    InConnector create(final Properties properties,
             final ConverterSelectionStrategy<?> converters)
             throws InitializeException;
 }

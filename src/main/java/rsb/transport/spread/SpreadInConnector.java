@@ -41,18 +41,18 @@ import rsb.filter.Filter;
 import rsb.filter.FilterAction;
 import rsb.transport.AbstractConnector;
 import rsb.transport.EventHandler;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 
 /**
- * An {@link InPushConnector} for the spread daemon network.
+ * An {@link InConnector} for the spread daemon network.
  *
  * @author jwienke
  */
-public class SpreadInPushConnector extends AbstractConnector
-                                   implements InPushConnector {
+public class SpreadInConnector extends AbstractConnector
+                                   implements InConnector {
 
     private static final Logger LOG = Logger
-            .getLogger(SpreadInPushConnector.class.getName());
+            .getLogger(SpreadInConnector.class.getName());
 
     private Scope scope;
     private final SpreadReceiver receiver;
@@ -65,7 +65,7 @@ public class SpreadInPushConnector extends AbstractConnector
      * @param converters
      *            the converters to use for deserializing data
      */
-    public SpreadInPushConnector(final SpreadWrapper spread,
+    public SpreadInConnector(final SpreadWrapper spread,
             final ConverterSelectionStrategy<ByteBuffer> converters) {
         assert !spread.isActive() : "As the spread object is used for handling "
                 + "our own activation state, it must not be active "
@@ -90,7 +90,7 @@ public class SpreadInPushConnector extends AbstractConnector
 
     @Override
     public void deactivate() throws RSBException, InterruptedException {
-        LOG.finer("Dectivate called");
+        LOG.finer("Deactivate called");
         this.receiver.deactivate();
     }
 

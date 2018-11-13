@@ -32,8 +32,8 @@ package rsb.examples;
 // mark-start::body
 import rsb.Factory;
 import rsb.Listener;
-import rsb.transport.spread.InPushConnectorFactoryRegistry;
-import rsb.transport.spread.SharedInPushConnectorFactory;
+import rsb.transport.spread.InConnectorFactoryRegistry;
+import rsb.transport.spread.SharedInConnectorFactory;
 
 /**
  * Explains how to enabled basic spread connection sharing for {@link Listener}
@@ -62,13 +62,13 @@ public final class SharedConnectionListenerExample {
         // Get a factory instance to create new RSB objects.
         final Factory factory = Factory.getInstance();
 
-        final String inPushFactoryKey = "shareIfPossible";
+        final String inFactoryKey = "shareIfPossible";
         // register a (spread-specifc) factory to create the appropriate in push
         // connectors. In this case the factory tries to share all connections
         // except the converters differ. You can implement other strategies to
         // better match your needs.
-        InPushConnectorFactoryRegistry.getInstance().registerFactory(
-                inPushFactoryKey, new SharedInPushConnectorFactory());
+        InConnectorFactoryRegistry.getInstance().registerFactory(
+                inFactoryKey, new SharedInConnectorFactory());
 
         // instruct the spread transport to use your newly registered factory
         // for creating in push connector instances
@@ -76,7 +76,7 @@ public final class SharedConnectionListenerExample {
                 .getOrCreateTransport("spread")
                 .getOptions()
                 .setProperty("transport.spread.java.infactory",
-                        inPushFactoryKey);
+                        inFactoryKey);
 
         // Create several listeners as usual and have a look at the open
         // connections to the spread daemon, e.g. via netstat -tanp | grep 4803

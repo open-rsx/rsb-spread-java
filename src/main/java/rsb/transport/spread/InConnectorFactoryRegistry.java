@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Registry for globally available {@link InPushConnectorFactory} instances.
+ * Registry for globally available {@link InConnectorFactory} instances.
  *
  * @deprecated this is more or less a hack until the configuration system
  *             supports a better structured way to specify the factory
@@ -39,15 +39,15 @@ import java.util.Map;
  * @author jwienke
  */
 @Deprecated
-public final class InPushConnectorFactoryRegistry {
+public final class InConnectorFactoryRegistry {
 
-    private static final InPushConnectorFactoryRegistry INSTANCE =
-            new InPushConnectorFactoryRegistry();
+    private static final InConnectorFactoryRegistry INSTANCE =
+            new InConnectorFactoryRegistry();
 
-    private final Map<String, InPushConnectorFactory> factories =
-            new HashMap<String, InPushConnectorFactory>();
+    private final Map<String, InConnectorFactory> factories =
+            new HashMap<String, InConnectorFactory>();
 
-    private InPushConnectorFactoryRegistry() {
+    private InConnectorFactoryRegistry() {
         // singleton constructor
     }
 
@@ -56,12 +56,12 @@ public final class InPushConnectorFactoryRegistry {
      *
      * @return singleton instance, not <code>null</code>
      */
-    public static InPushConnectorFactoryRegistry getInstance() {
+    public static InConnectorFactoryRegistry getInstance() {
         return INSTANCE;
     }
 
     /**
-     * Register a new {@link InPushConnectorFactory} instance under the given
+     * Register a new {@link InConnectorFactory} instance under the given
      * key.
      *
      * @param key
@@ -71,7 +71,7 @@ public final class InPushConnectorFactoryRegistry {
      *            the factory instance, not <code>null</code>
      */
     public void registerFactory(final String key,
-            final InPushConnectorFactory factory) {
+            final InConnectorFactory factory) {
         assert key != null;
         assert factory != null;
 
@@ -93,7 +93,7 @@ public final class InPushConnectorFactoryRegistry {
      * @return factory or <code>null</code> if nothing is available under the
      *         specified key
      */
-    InPushConnectorFactory get(final String key) {
+    InConnectorFactory get(final String key) {
         assert key != null;
         return this.factories.get(key);
     }
