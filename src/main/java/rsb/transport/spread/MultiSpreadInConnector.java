@@ -39,17 +39,17 @@ import rsb.filter.Filter;
 import rsb.filter.FilterAction;
 import rsb.transport.AbstractConnector;
 import rsb.transport.EventHandler;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 import rsb.transport.spread.SpreadMultiReceiver.Subscription;
 
 /**
- * A {@link SpreadInPushConnector} which implement connection sharing by using a
+ * A {@link SpreadInConnector} which implement connection sharing by using a
  * {@link SpreadMultiReceiver} instance.
  *
  * @author jwienke
  */
-public class MultiSpreadInPushConnector extends AbstractConnector
-                                        implements InPushConnector {
+public class MultiSpreadInConnector extends AbstractConnector
+                                        implements InConnector {
 
     private final SpreadMultiReceiver spread;
     private Scope scope = null;
@@ -63,9 +63,9 @@ public class MultiSpreadInPushConnector extends AbstractConnector
 
         @Override
         public void handle(final Event event) {
-            synchronized (MultiSpreadInPushConnector.this.handlers) {
+            synchronized (MultiSpreadInConnector.this.handlers) {
                 // CHECKSTYLE.OFF: LineLength - no way to avoid with eclipse
-                for (final EventHandler handler : MultiSpreadInPushConnector.this.handlers) {
+                for (final EventHandler handler : MultiSpreadInConnector.this.handlers) {
                     handler.handle(event);
                 }
                 // CHECKSTYLE.ON: LineLength
@@ -80,7 +80,7 @@ public class MultiSpreadInPushConnector extends AbstractConnector
      * @param spread
      *            the spread receiver instance to use, not <code>null</code>.
      */
-    public MultiSpreadInPushConnector(final SpreadMultiReceiver spread) {
+    public MultiSpreadInConnector(final SpreadMultiReceiver spread) {
         assert spread != null;
         this.spread = spread;
     }

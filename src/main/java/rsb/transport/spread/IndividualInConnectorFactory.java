@@ -32,16 +32,16 @@ import java.nio.ByteBuffer;
 
 import rsb.InitializeException;
 import rsb.converter.ConverterSelectionStrategy;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 import rsb.util.Properties;
 
 /**
- * A {@link InPushConnectorFactory} implementation assigning an individual
+ * A {@link InConnectorFactory} implementation assigning an individual
  * connector to each creation request.
  *
  * @author jwienke
  */
-public class IndividualInPushConnectorFactory implements InPushConnectorFactory {
+public class IndividualInConnectorFactory implements InConnectorFactory {
 
     // TODO remove duplication
     private SpreadWrapper createSpreadWrapper(final SpreadOptions options)
@@ -59,10 +59,10 @@ public class IndividualInPushConnectorFactory implements InPushConnectorFactory 
 
     @SuppressWarnings("unchecked")
     @Override
-    public InPushConnector create(final Properties properties,
+    public InConnector create(final Properties properties,
             final ConverterSelectionStrategy<?> converters)
             throws InitializeException {
-        return new SpreadInPushConnector(
+        return new SpreadInConnector(
                 createSpreadWrapper(ConfigParseUtilities
                         .spreadOptionsFromProperties(properties)),
                 (ConverterSelectionStrategy<ByteBuffer>) converters);

@@ -125,7 +125,7 @@ Spread daemon not found at '${spread.daemon}'. Please set spread.daemon.
                     </systemProperties>
                     <environmentVariables>
                         <!-- This implicitly tests that the plugin can correctly be loaded -->
-                        <RSB_PLUGIN_JAVA_LOAD>rsb.transport.spread</RSB_PLUGIN_JAVA_LOAD>
+                        <RSB_PLUGINS_JAVA_LOAD>rsb.transport.spread</RSB_PLUGINS_JAVA_LOAD>
                         <RSB_TRANSPORT_SPREAD_PORT>${spread.port}</RSB_TRANSPORT_SPREAD_PORT>
                     </environmentVariables>
                 </configuration>

@@ -40,7 +40,7 @@ import rsb.QualityOfServiceSpec.Ordering;
 import rsb.QualityOfServiceSpec.Reliability;
 import rsb.converter.StringConverter;
 import rsb.converter.UnambiguousConverterMap;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 import rsb.transport.OutConnector;
 import rsb.testutils.ConnectorRoundtripCheck;
 
@@ -78,13 +78,13 @@ public class SpreadRoundtripTest extends ConnectorRoundtripCheck {
     }
 
     @Override
-    protected InPushConnector createInConnector() throws Throwable {
+    protected InConnector createInConnector() throws Throwable {
         final UnambiguousConverterMap<ByteBuffer> inStrategy =
                 new UnambiguousConverterMap<ByteBuffer>();
         inStrategy.addConverter("utf-8-string", new StringConverter());
         final SpreadWrapper inWrapper = Utilities.createSpreadWrapper();
-        final SpreadInPushConnector inPort =
-                new SpreadInPushConnector(inWrapper, inStrategy);
+        final SpreadInConnector inPort =
+                new SpreadInConnector(inWrapper, inStrategy);
         return inPort;
     }
 

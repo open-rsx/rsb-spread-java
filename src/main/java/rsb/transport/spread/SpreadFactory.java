@@ -39,7 +39,7 @@ import java.util.logging.Logger;
 import rsb.InitializeException;
 import rsb.QualityOfServiceSpec;
 import rsb.converter.ConverterSelectionStrategy;
-import rsb.transport.InPushConnector;
+import rsb.transport.InConnector;
 import rsb.transport.OutConnector;
 import rsb.transport.TransportFactory;
 import rsb.util.Properties;
@@ -57,8 +57,8 @@ public class SpreadFactory implements TransportFactory {
     private static final Logger LOG = Logger.getLogger(SpreadFactory.class
             .getName());
 
-    private static final InPushConnectorFactory DEFAULT_IN_FACTORY =
-            new IndividualInPushConnectorFactory();
+    private static final InConnectorFactory DEFAULT_IN_FACTORY =
+            new IndividualInConnectorFactory();
 
     private static final String IN_FACTORY_KEY =
             "transport.spread.java.infactory";
@@ -108,18 +108,18 @@ public class SpreadFactory implements TransportFactory {
 
     @SuppressWarnings("deprecation")
     @Override
-    public InPushConnector createInPushConnector(final Properties properties,
+    public InConnector createInConnector(final Properties properties,
             final ConverterSelectionStrategy<?> converters)
             throws InitializeException {
 
-        InPushConnectorFactory factory = DEFAULT_IN_FACTORY;
+        InConnectorFactory factory = DEFAULT_IN_FACTORY;
         if (properties.hasProperty(IN_FACTORY_KEY)) {
             factory =
-                    InPushConnectorFactoryRegistry.getInstance().get(
+                    InConnectorFactoryRegistry.getInstance().get(
                             properties.getProperty(IN_FACTORY_KEY).asString());
             if (factory == null) {
                 throw new InitializeException(
-                        "InPushConnectorFactory with key '"
+                        "InConnectorFactory with key '"
                                 + properties.getProperty(IN_FACTORY_KEY)
                                         .asString()
                                 + "' not available in the registry");
