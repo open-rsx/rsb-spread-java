@@ -4,7 +4,7 @@
 
 This repository contains the Java implementation of the [Spread][spread]-based transport for the [Robotics Service Bus](https://github.com/open-rsx) middleware.
 
-**The full documentation for RSB can be found at <https://docs.cor-lab.de/manual/rsb-trunk/index.html>.**
+**The full documentation for RSB can be found at <https://open-rsx.github.io/rsb-manual/>.**
 
 **This product uses software developed by Spread Concepts LLC for use in the Spread toolkit. For more information about Spread see <http://www.spread.org>.**
 
